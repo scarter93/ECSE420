@@ -61,7 +61,7 @@ void *init_rand(void *args)
   int r = rand() % 1000000;
   usleep(r);
   pthread_mutex_lock(check);
-  result[num] = args;
+  result[num] = *((int*)args);
   num++;
   pthread_mutex_unlock(check);
   return NULL;
