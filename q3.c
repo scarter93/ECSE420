@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
     if(i != (N-1))
       fprintf(stdout, "%d, ", result[i]);
     else
-      fprintf(stdout, "%d/n", result[i]);
+      fprintf(stdout, "%d\n", result[i]);
   }
 }
 
