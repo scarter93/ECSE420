@@ -6,7 +6,7 @@
 
 void *init_rand(void *args);
 
-static int *result;
+int *result;
 static int num = 0;
 pthread_mutex_t *check;
 
@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
   int i;
   for (i = 0; i < N; i++)
   {
+    fprintf(stdout, "creating thread\n");
     s = pthread_create(&thread[i], NULL, &init_rand, &i);
     fprintf(stdout, "thread created \n");
     if (s != 0)
@@ -61,7 +62,7 @@ void *init_rand(void *args)
   int r = rand() % 1000000;
   usleep(r);
   pthread_mutex_lock(check);
-  result[num] = *((int*)args);
+  result[num] = (int*)args;
   num++;
   pthread_mutex_unlock(check);
   return NULL;
