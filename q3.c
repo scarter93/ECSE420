@@ -15,7 +15,8 @@ int main(int argc, char *argv[])
   srand(time(NULL));
 
   int N = atoi(argv[1]);
-
+  int s;
+  
   pthread_t thread[N];
   Result = malloc(sizeof(int)*N);
   fprintf(stderr, "size: %d\n", sizeof(Result));
@@ -26,20 +27,20 @@ int main(int argc, char *argv[])
   int i;
   for (i = 0; i < N; i++)
   {
-    int s = pthread_create(&thread[i], NULL, init_rand, &i);
+    s = pthread_create(&thread[i], NULL, &init_rand, &i);
     if (s != 0)
     {
-      fprintf(stdout, "Error, exiting \n");
+      fprintf(stderr, "Error, exiting \n");
       exit(1);
     }
   }
 
   for (i = 0; i < N; i++)
   {
-    int s = pthread_join(thread[i], NULL);
+    s = pthread_join(thread[i], NULL);
     if (s != 0)
     {
-      fprintf(stdout, "Error, exiting \n");
+      fprintf(stderr, "Error, exiting \n");
       exit(1);
     }
   }
