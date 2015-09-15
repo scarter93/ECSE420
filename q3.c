@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
   int i;
   for (i = 0; i < N; i++)
   {
-    int s = pthread_create(&thread[i], NULL, &init_rand, &i);
+    int s = pthread_create(&thread[i], NULL, init_rand, &i);
     if (s != 0)
     {
       fprintf(stdout, "Error, exiting \n");
