@@ -11,7 +11,7 @@ pthread_mutex_t *check;
 
 int main(int argc, char *argv[]){
 
-  if argc < 2{
+  if (argc < 2){
     fprintf(stderr, "argc = %d; exiting\n", argc);
     exit(1);
   }
