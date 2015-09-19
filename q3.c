@@ -33,7 +33,6 @@ int main(int argc, char *argv[]){
       fprintf(stderr, "Error, exiting \n");
       exit(1);
     }
-    free(j);
   }
   for (i = 0; i < N; i++){            //join N pthreads and check for erros
     s = pthread_join(thread[i], NULL);
