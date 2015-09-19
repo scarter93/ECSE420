@@ -17,7 +17,6 @@ int main(int argc, char *argv[]){
   }
 
   srand(time(NULL));
-
   int N = atoi(argv[1]);
   int s;
   pthread_t thread[N];
