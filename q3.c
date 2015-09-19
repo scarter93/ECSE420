@@ -10,7 +10,7 @@ int num = 0;
 pthread_mutex_t *check;
 
 int main(int argc, char *argv[]){
-  if (argc < 2){              //check for cmd line entry error and exit
+  if (argc != 2){              //check for cmd line entry error and exit
     fprintf(stderr, "argc = %d; exiting\n", argc);
     exit(1);
   }
