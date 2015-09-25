@@ -7,9 +7,11 @@
 
 //int results*;
 unsigned char *image, *new_image;
+unsigned width = 0, height = 0;
 
 void *worker_thread(void *arg) {
   int *pos_val = (int*)arg;
+  int value;
   fprintf(stdout, "first width = %d\nsecond width = %d\nfirst height =  %d\nsecond height = %d\n", pos_val[0], pos_val[1], pos_val[2], pos_val[3]);
   for (int i = pos_val[0]; i < pos_val[1]; i++) {
     for (int j = pos_val[2]; j < pos_val[3]; j++) {
@@ -29,9 +31,7 @@ void *worker_thread(void *arg) {
 void binarize(char* input_filename, char* output_filename, int thread_count)
 {
   unsigned error;
-  unsigned width, height;
   int pos[4];
-
   // load image from PNG into C array
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
