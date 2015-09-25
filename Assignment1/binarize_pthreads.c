@@ -9,9 +9,8 @@
 unsigned char *image, *new_image;
 
 void *worker_thread(void *arg) {
-  int *pos_val = (*(int*)arg);
-  fprintf(stdout, "first width = %d\nsecond width = %d\n
-          first height =  %d\nsecond height = %d\n", pos_val[0], pos_val[1], pos_val[2], pos_val[3]);
+  int *pos_val = *(int*)arg;
+  fprintf(stdout, "first width = %d\nsecond width = %d\nfirst height =  %d\nsecond height = %d\n", pos_val[0], pos_val[1], pos_val[2], pos_val[3]);
   or (int i = pos_val[0]; i < pos_val[1]; i++) {
     for (int j = pos_val[2]; j < pos_val[3]; j++) {
 
