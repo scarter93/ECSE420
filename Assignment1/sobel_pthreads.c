@@ -5,11 +5,10 @@
 #include <pthread.h>
 #include <sys/time.h>
 
-/* TODO: it may help to put some global variables here 
-for your threads to use */
+//pthread_t
 
 void *worker_thread(void *arg) {
-  /* TODO: put image processing code here */ 
+  /* TODO: put image processing code here */
   pthread_exit(NULL);
 }
 
@@ -27,8 +26,8 @@ void sobelize(char* input_filename, char* output_filename, int thread_count)
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
 
-  /* TODO: create your thread team here and send each thread an argument 
-  telling it which part of "image" to process 
+  /* TODO: create your thread team here and send each thread an argument
+  telling it which part of "image" to process
 
   remember to join all threads!
   */
