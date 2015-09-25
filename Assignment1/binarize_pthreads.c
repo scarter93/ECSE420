@@ -9,7 +9,7 @@
 unsigned char *image, *new_image;
 
 void *worker_thread(void *arg) {
-  int *pos_val = (int*)arg;
+  int *pos_val = (*(int*)arg);
   fprintf(stdout, "first width = %d\nsecond width = %d\n
           first height =  %d\nsecond height = %d\n", pos_val[0], pos_val[1], pos_val[2], pos_val[3]);
   or (int i = pos_val[0]; i < pos_val[1]; i++) {
@@ -24,7 +24,7 @@ void *worker_thread(void *arg) {
       new_image[4*width*i + 4*j + 3] = 255;
     }
   }
-  pthread_exit(NULL);
+  //pthread_exit(NULL);
 }
 
 void binarize(char* input_filename, char* output_filename, int thread_count)
