@@ -11,7 +11,7 @@ unsigned char *image, *new_image;
 void *worker_thread(void *arg) {
   int *pos_val = (int*)arg;
   fprintf(stdout, "first width = %d\nsecond width = %d\nfirst height =  %d\nsecond height = %d\n", pos_val[0], pos_val[1], pos_val[2], pos_val[3]);
-  or (int i = pos_val[0]; i < pos_val[1]; i++) {
+  for (int i = pos_val[0]; i < pos_val[1]; i++) {
     for (int j = pos_val[2]; j < pos_val[3]; j++) {
 
       int check = image[4*width*i + 4*j];
@@ -30,7 +30,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
 {
   unsigned error;
   unsigned width, height;
-  int pos[4] = 0;
+  int pos[4];
 
   // load image from PNG into C array
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
@@ -39,7 +39,8 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
 
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
-  //int width_init = 0;
+  for(int k = 0; k < 4; k++) pos[k] = 0;
+
   int width_piece = int(round(width/thread_count));
   //int height_init = 0;
   int height_piece = int(round(height/thread_count));
