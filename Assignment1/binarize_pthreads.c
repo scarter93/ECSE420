@@ -14,9 +14,9 @@ unsigned width = 0, height = 0;
 void *worker_thread(void *arg) {
   int *pos_val = (int*)arg;
   int value;
-  fprintf(stdout, "first width = %d\nsecond width = %d\nfirst height =  %d\nsecond height = %d\n", pos_val[0], pos_val[1], pos_val[2], pos_val[3]);
+  fprintf(stdout, "first height = %d\nend height = %d", pos_val[0], pos_val[1]);
   for (int i = pos_val[0]; i < pos_val[1]; i++) {
-    for (int j = pos_val[2]; j < pos_val[3]; j++) {
+    for (int j = 0; j < width; j++) {
 
       int check = image[4*width*i + 4*j];
       value = check <= THRESHOLD ? 0 : 255;
@@ -33,7 +33,7 @@ void *worker_thread(void *arg) {
 void binarize(char* input_filename, char* output_filename, int thread_count)
 {
   unsigned error;
-  int pos[4];
+  int pos[2];
   // load image from PNG into C array
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
@@ -41,14 +41,8 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
 
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
-  for(int k = 0; k < 4; k++) pos[k] = 0;
 
-  int width_piece = (int)(round((float)(width)/thread_count));
-  fprintf(stdout, "width_piece = %d\n", width_piece);
-  pos[1] = width_piece;
   int height_piece = (int)(round((float)(height)/thread_count));
-  fprintf(stdout, "height_piece = %d\n", height_piece);
-  pos[3] = height_piece;
 
 
   /* TODO: create your thread team here and send each thread an argument
@@ -58,17 +52,16 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   //results = malloc(width * height * 4 * sizeof(unsigned char));
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
-    int *j;
-    *j = *pos;
+    pos[0] = i*height_piece;
+    pos[1] = min((i+1)*height_piece, height);
+    
+    int *j = malloc(2*sizeof(int));
+    memcpy(*j, *pos, 2*sizeof(int));
     int c = pthread_create(&threads[i], NULL, &worker_thread, j);
     if (c != 0) {
       fprintf(stderr, "Error creating pthreads exiting...\n");
       exit(1);
     }
-    pos[0] += width_piece;
-    pos[1] += width_piece;
-    pos[2] += height_piece;
-    pos[3] += height_piece;
   }
 
   for(int i = 0; i < thread_count; i++) {
