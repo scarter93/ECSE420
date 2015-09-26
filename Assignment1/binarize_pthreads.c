@@ -48,7 +48,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   gettimeofday(&start, NULL);  // set starting point
 
   fprintf(stdout, "%d\n", height);
-  unsigned height_piece = ceil(height/float(thread_count));
+  unsigned height_piece = ceil(height/(float)(thread_count));
 
 
   /* TODO: create your thread team here and send each thread an argument
