@@ -31,7 +31,7 @@ void *worker_thread(void *arg) {
       new_image[4*width*i + 4*j + 3] = 255;
     }
   }
-  free(args);
+  free(arg);
   pthread_exit(NULL);
 }
 
@@ -40,7 +40,6 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   unsigned error;
   unsigned pos[2];
   // load image from PNG into C array
-  image
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
   new_image = malloc(width * height * 4 * sizeof(unsigned char));
