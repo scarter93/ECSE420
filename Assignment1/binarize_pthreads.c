@@ -89,7 +89,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   free(image);
   free(new_image);
   //free(result);
-  free(threads)
+  free(threads);
 }
 
 int main(int argc, char *argv[])
