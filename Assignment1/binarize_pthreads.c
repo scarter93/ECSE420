@@ -58,7 +58,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   //results = malloc(width * height * 4 * sizeof(unsigned char));
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
-    int *j = malloc(4*sizeof(int));
+    int *j;
     *j = *pos;
     int c = pthread_create(&threads[i], NULL, &worker_thread, j);
     if (c != 0) {
