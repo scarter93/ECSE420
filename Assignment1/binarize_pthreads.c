@@ -10,11 +10,12 @@
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
 //int results*;
-unsigned char *image, *new_image;
+unsigned char *image;
+unsigned char *new_image;
 unsigned width = 0, height = 0;
 
 void *worker_thread(void *arg) {
-  int *pos_val = (int*)arg;
+  unsigned *pos_val = (int*)arg;
   int value;
   fprintf(stdout, "first height = %d\nend height = %d\nwidth = %d\nheight = %d\n",
                   pos_val[0], pos_val[1], width, height);
@@ -30,14 +31,16 @@ void *worker_thread(void *arg) {
       new_image[4*width*i + 4*j + 3] = 255;
     }
   }
-  //pthread_exit(NULL);
+  free(args);
+  pthread_exit(NULL);
 }
 
 void binarize(char* input_filename, char* output_filename, int thread_count)
 {
   unsigned error;
-  int pos[2];
+  unsigned pos[2];
   // load image from PNG into C array
+  image
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
   new_image = malloc(width * height * 4 * sizeof(unsigned char));
@@ -46,7 +49,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   gettimeofday(&start, NULL);  // set starting point
 
   fprintf(stdout, "%d\n", height);
-  int height_piece = height/thread_count;
+  unsigned height_piece = ceil(height/float(thread_count));
 
 
   /* TODO: create your thread team here and send each thread an argument
@@ -57,10 +60,10 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
     pos[0] = i*height_piece;
-    pos[1] = MIN((i+1)*height_piece+1, height);
+    pos[1] = MIN((i+1)*height_piece, height);
 
-    int *j = malloc(2*sizeof(int));
-    memcpy(j, pos, 2*sizeof(int));
+    unsigned *j = malloc(2*sizeof(unsigned));
+    memcpy(j, pos, 2*sizeof(unsigned));
     int c = pthread_create(&threads[i], NULL, &worker_thread, j);
     if (c != 0) {
       fprintf(stderr, "Error creating pthreads exiting...\n");
@@ -86,7 +89,6 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   free(image);
   free(new_image);
   //free(result);
-  //free(threads);
 }
 
 int main(int argc, char *argv[])
