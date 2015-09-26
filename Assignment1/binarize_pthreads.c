@@ -3,9 +3,11 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
-#include <math.h>
+//#include <math.h>
 #define _ISOC99_SOURCE
 #define THRESHOLD 200
+
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
 //int results*;
 unsigned char *image, *new_image;
@@ -53,10 +55,10 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
     pos[0] = i*height_piece;
-    pos[1] = min((i+1)*height_piece, height);
-    
+    pos[1] = MIN((i+1)*height_piece, height);
+
     int *j = malloc(2*sizeof(int));
-    memcpy(*j, *pos, 2*sizeof(int));
+    memcpy(j, pos, 2*sizeof(int));
     int c = pthread_create(&threads[i], NULL, &worker_thread, j);
     if (c != 0) {
       fprintf(stderr, "Error creating pthreads exiting...\n");
