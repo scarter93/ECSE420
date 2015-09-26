@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
+#include <math.h>
 #define THRESHOLD 200
 
 //int results*;
@@ -41,9 +42,9 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   gettimeofday(&start, NULL);  // set starting point
   for(int k = 0; k < 4; k++) pos[k] = 0;
 
-  int width_piece = (int)(round(width/thread_count));
+  int width_piece = (int)(lround(width/thread_count));
   //int height_init = 0;
-  int height_piece = (int)(round(height/thread_count));
+  int height_piece = (int)(lround(height/thread_count));
 
   /* TODO: create your thread team here and send each thread an argument
   telling it which part of "image" to process
