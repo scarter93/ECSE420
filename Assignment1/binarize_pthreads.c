@@ -16,7 +16,8 @@ unsigned width = 0, height = 0;
 void *worker_thread(void *arg) {
   int *pos_val = (int*)arg;
   int value;
-  fprintf(stdout, "first height = %d\nend height = %d", pos_val[0], pos_val[1]);
+  fprintf(stdout, "first height = %d\nend height = %d\nwidth = %d\nheight = %d\n", 
+                  pos_val[0], pos_val[1], width, height);
   for (int i = pos_val[0]; i < pos_val[1]; i++) {
     for (int j = 0; j < width; j++) {
 
@@ -44,6 +45,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
 
+  fprintf(stdout, "%d\n", height);
   int height_piece = height/thread_count;
 
 
