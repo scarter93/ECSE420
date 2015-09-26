@@ -68,7 +68,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
     }
     int *j = malloc(4*sizeof(int));
     *j = *pos;
-    int c = pthread_create(&threads[i], NULL, &worker_thread, &j);
+    int c = pthread_create(&threads[i], NULL, &worker_thread, j);
     if (c != 0) {
       fprintf(stderr, "Error creating pthreads exiting...\n");
       exit(1);
