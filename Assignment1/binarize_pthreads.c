@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <sys/time.h>
-//#include <math.h>
+#include <math.h>
 #define _ISOC99_SOURCE
 #define THRESHOLD 200
 

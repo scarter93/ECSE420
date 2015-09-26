@@ -4,7 +4,7 @@ binarize_sequential: binarize_sequential.o lodepng.o
 		gcc -std=c99 -o binarize_sequential binarize_sequential.o lodepng.o
 
 binarize_pthreads: binarize_pthreads.o lodepng.o
-		gcc -std=c99 -pthread -o binarize_pthreads binarize_pthreads.o lodepng.o
+		gcc -std=c99 -pthread -o binarize_pthreads binarize_pthreads.o lodepng.o -lm
 
 binarize_openmp: binarize_openmp.o lodepng.o
 		gcc -std=c99 -fopenmp -o binarize_openmp binarize_openmp.o lodepng.o
@@ -12,7 +12,7 @@ binarize_openmp: binarize_openmp.o lodepng.o
 binarize_sequential.o: binarize_sequential.c lodepng.h
 		gcc -std=c99 -c binarize_sequential.c
 
-binarize_pthreads.o: binarize_pthreads.c lodepng.h
+binarize_pthreads.o: binarize_pthreads.c lodepng.h -lm
 		gcc -std=c99 -c -pthread binarize_pthreads.c
 
 binarize_openmp.o: binarize_openmp.c lodepng.h
