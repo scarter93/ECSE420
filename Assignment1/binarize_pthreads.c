@@ -44,7 +44,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
 
-  int height_piece = (int)(round((float)(height)/thread_count));
+  int height_piece = height/thread_count;
 
 
   /* TODO: create your thread team here and send each thread an argument
