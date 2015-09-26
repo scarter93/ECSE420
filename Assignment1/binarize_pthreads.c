@@ -53,17 +53,17 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   //results = malloc(width * height * 4 * sizeof(unsigned char));
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
-    if(pos[0] == 0 && pos[2] == 0)
+    if(pos[0] == 0 && pos[2] == 0) {
       pos[1] = width_piece;
       pos[3] = height_piece;
-    else {
+    } else {
       pos[0] += width_piece;
       pos[1] += width_piece;
       pos[2] += height_piece;
       pos[3] += height_piece;
     }
-    int *j = malloc(2*sizeof(int));
-    *j = pos;
+    int *j = malloc(4*sizeof(int));
+    *j = *pos;
     int c = pthread_create(&threads[i], NULL, &worker_thread, j);
     if (c != 0) {
       fprintf(stderr, "Error creating pthreads exiting...\n");
