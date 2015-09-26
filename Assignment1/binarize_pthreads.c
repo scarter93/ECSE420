@@ -45,9 +45,10 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
 
   int width_piece = (int)(round((float)(width)/thread_count));
   fprintf(stdout, "width_piece = %d\n", width_piece);
-  //int height_init = 0;
+  pos[1] = width_piece;
   int height_piece = (int)(round((float)(height)/thread_count));
   fprintf(stdout, "height_piece = %d\n", height_piece);
+  pos[3] = height_piece;
 
 
   /* TODO: create your thread team here and send each thread an argument
@@ -57,15 +58,6 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   //results = malloc(width * height * 4 * sizeof(unsigned char));
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
-    if(pos[1] == 0 && pos[3] == 0) {
-      pos[1] = width_piece;
-      pos[3] = height_piece;
-    } else {
-      pos[0] += width_piece;
-      pos[1] += width_piece;
-      pos[2] += height_piece;
-      pos[3] += height_piece;
-    }
     int *j = malloc(4*sizeof(int));
     *j = *pos;
     int c = pthread_create(&threads[i], NULL, &worker_thread, j);
@@ -73,6 +65,10 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
       fprintf(stderr, "Error creating pthreads exiting...\n");
       exit(1);
     }
+    pos[0] += width_piece;
+    pos[1] += width_piece;
+    pos[2] += height_piece;
+    pos[3] += height_piece;
   }
 
   for(int i = 0; i < thread_count; i++) {
@@ -93,7 +89,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   free(image);
   free(new_image);
   //free(result);
-  free(threads);
+  //free(threads);
 }
 
 int main(int argc, char *argv[])
