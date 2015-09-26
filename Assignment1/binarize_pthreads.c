@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <math.h>
+#define _ISOC99_SOURCE
 #define THRESHOLD 200
 
 //int results*;
