@@ -44,8 +44,11 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   for(int k = 0; k < 4; k++) pos[k] = 0;
 
   int width_piece = (int)(round((float)(width)/thread_count));
+  fprintf(stdout, "width_piece = %d\n", width_piece);
   //int height_init = 0;
   int height_piece = (int)(round((float)(height)/thread_count));
+  fprintf(stdout, "height_piece = %d\n", height_piece);
+
 
   /* TODO: create your thread team here and send each thread an argument
   telling it which part of "image" to process
@@ -54,7 +57,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   //results = malloc(width * height * 4 * sizeof(unsigned char));
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
-    if(pos[0] == 0 && pos[2] == 0) {
+    if(pos[1] == 0 && pos[3] == 0) {
       pos[1] = width_piece;
       pos[3] = height_piece;
     } else {
@@ -64,7 +67,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
       pos[3] += height_piece;
     }
     int *j = malloc(4*sizeof(int));
-    *j = *pos;
+    *j = &pos;
     int c = pthread_create(&threads[i], NULL, &worker_thread, j);
     if (c != 0) {
       fprintf(stderr, "Error creating pthreads exiting...\n");
