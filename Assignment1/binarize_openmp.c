@@ -20,18 +20,20 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
 
   /* TODO: put your OpenMP parallel block here */
   unsigned char value;
-  #pragma omp parallel for num_threads(thread_count/2)
-  for (int i = 0; i < height; i++) {
-    #pragma omp parallel for num_threads(thread_count/2)
-    for (int j = 0; j < width; j++) {
-      int check = image[4*width*i + 4*j];
+  #pragma omp parallel num_threads(thread_count){
+    #pragma omp for
+    for (int i = 0; i < height; i++) {
+      #pragma omp for
+      for (int j = 0; j < width; j++) {
+        int check = image[4*width*i + 4*j];
 
-      value = check <= THRESHOLD ? 0 : 255;
+        value = check <= THRESHOLD ? 0 : 255;
 
-      new_image[4*width*i + 4*j] = value;
-      new_image[4*width*i + 4*j + 1] = value;
-      new_image[4*width*i + 4*j + 2] = value;
-      new_image[4*width*i + 4*j + 3] = 255;
+        new_image[4*width*i + 4*j] = value;
+        new_image[4*width*i + 4*j + 1] = value;
+        new_image[4*width*i + 4*j + 2] = value;
+        new_image[4*width*i + 4*j + 3] = 255;
+      }
     }
   }
 
