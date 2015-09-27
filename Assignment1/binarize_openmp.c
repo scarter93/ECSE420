@@ -35,7 +35,6 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
         new_image[4*width*i + 4*j + 3] = 255;
       }
     }
-  }
 
   gettimeofday(&end, NULL);
   printf("\n\nAlgorithm's computational part duration : %ld\n", \
