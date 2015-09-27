@@ -20,7 +20,8 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
 
   /* TODO: put your OpenMP parallel block here */
   unsigned char value;
-  #pragma omp parallel num_threads(thread_count){
+  #pragma omp parallel num_threads(thread_count)
+  {
     #pragma omp for
     for (int i = 0; i < height; i++) {
       #pragma omp for
