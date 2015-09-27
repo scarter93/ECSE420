@@ -22,7 +22,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   unsigned char value;
   #pragma omp parallel for num_threads(thread_count)
   for (int i = 0; i < height; i++) {
-    #pragma omp for
+    #pragma omp parallel for
     for (int j = 0; j < width; j++) {
       int check = image[4*width*i + 4*j];
 
