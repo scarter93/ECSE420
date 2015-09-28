@@ -61,7 +61,7 @@ void sobelize(char* input_filename, char* output_filename, int thread_count)
   */
   pthread_t threads[thread_count];
   for(int i = 0; i < thread_count; i++){
-    pos[0] = i*height_piece;
+    pos[0] = i*height_piece + 1;
     pos[1] = MIN((i+1)*height_piece, height);
 
     unsigned *j = malloc(2*sizeof(unsigned));
