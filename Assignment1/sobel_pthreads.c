@@ -16,10 +16,10 @@ void *worker_thread(void *arg) {
   unsigned *pos_val = (int*)arg;
   int value;
   fprintf(stdout, "first height%d\nsecond height%d\n", pos_val[0]+1, pos_val[1]-1);
-  for (int i = pos_val[0] + 1; i < pos_val[1]-1; i++) {
-    for (int j = 1; j < width-1; j++) {
+  for (int i = pos_val[0]; i < pos_val[1]; i++) {
+    for (int j = 0; j < width; j++) {
 
-      //if(1 < i < height-1) {
+      if(1 < i < height-1 && 1 < j < width-1) {
         //fprintf(stdout, "i = %d\n", i);
         value = (abs((image[4*width*(i-1) + 4*(j-1)] + 2*image[4*width*(i-1) + 4*j]
                   + image[4*width*(i-1) + 4*(j+1)]) - (image[4*width*(i+1) + 4*(j-1)]
@@ -32,7 +32,7 @@ void *worker_thread(void *arg) {
         new_image[4*width*i + 4*j + 1] = value;
         new_image[4*width*i + 4*j + 2] = value;
         new_image[4*width*i + 4*j + 3] = 255;
-      //}
+      }
     }
   }
   free(arg);
