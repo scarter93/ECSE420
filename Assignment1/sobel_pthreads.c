@@ -15,7 +15,7 @@ unsigned width = 0, height = 0;
 void *worker_thread(void *arg) {
   unsigned *pos_val = (int*)arg;
   int value;
-  fprintf(stdout, "first height%d\nsecond height%d\n", pos_val[0]+1, pos_val[1]-1);
+  fprintf(stdout, "first height%d\nsecond height%d\n", pos_val[0], pos_val[1]);
   for (int i = pos_val[0]; i < pos_val[1]; i++) {
     for (int j = 0; j < width; j++) {
 
