@@ -22,7 +22,7 @@ sobel_sequential: sobel_sequential.o lodepng.o
 		gcc -std=c99 -o sobel_sequential sobel_sequential.o lodepng.o
 
 sobel_pthreads: sobel_pthreads.o lodepng.o
-		gcc -std=c99 -pthread -o sobel_pthreads sobel_pthreads.o lodepng.o
+		gcc -std=c99 -pthread -o sobel_pthreads sobel_pthreads.o lodepng.o -lm
 
 sobel_openmp: sobel_openmp.o lodepng.o
 		gcc -std=c99 -fopenmp -o sobel_openmp sobel_openmp.o lodepng.o
@@ -31,7 +31,7 @@ sobel_sequential.o: sobel_sequential.c lodepng.h
 		gcc -std=c99 -c sobel_sequential.c
 
 sobel_pthreads.o: sobel_pthreads.c lodepng.h
-		gcc -std=c99 -c -pthread sobel_pthreads.c
+		gcc -std=c99 -c -pthread sobel_pthreads.c -lm
 
 sobel_openmp.o: sobel_openmp.c lodepng.h
 		gcc -std=c99 -fopenmp -c sobel_openmp.c
