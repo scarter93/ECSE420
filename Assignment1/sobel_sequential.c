@@ -27,7 +27,7 @@ void sobelize(char* input_filename, char* output_filename)
                   + image[4*width*(i-1) + 4*(j+1)]) - (image[4*width*(i+1) + 4*(j-1)]
                   + 2*image[4*width*(i+1) + 4*j] + image[4*width*(i+1) + 4*(j+1)]))
                   + abs((image[4*width*(i-1) + 4*(j+1)] + 2*image[4*width*(i) + 4*(j+1)]
-                  + image[4*width*(i+1) +4*(j+1)]) - (image[4*width*(i-1) + 4*(j-1)]
+                  + image[4*width*(i+1) + 4*(j+1)]) - (image[4*width*(i-1) + 4*(j-1)]
                   + 2*image[4*width*i + 4*(j-1)] + image[4*width*(i+1) + 4*(j-1)])));
 
       new_image[4*width*i + 4*j] = value;
