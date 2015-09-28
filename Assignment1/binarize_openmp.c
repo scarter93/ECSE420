@@ -21,11 +21,11 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
 
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
-
+  int i,j;
   unsigned char value;
   #pragma omp parallel for num_threads(thread_count) private(j,value)
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (i = 0; i < height; i++) {
+      for (j = 0; j < width; j++) {
 
         int check = image[4*width*i + 4*j];
 
