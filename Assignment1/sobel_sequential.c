@@ -31,8 +31,8 @@ void sobelize(char* input_filename, char* output_filename)
                   + 2*image[4*width*i + 4*(j-1)] + image[4*width*(i+1) + 4*(j-1)])));
 
       new_image[4*width*i + 4*j] = value;
-      new_image[4*width*i + 4*j + 1] = value;
-      new_image[4*width*i + 4*j + 2] = value;
+      //new_image[4*width*i + 4*j + 1] = value;
+      //new_image[4*width*i + 4*j + 2] = value;
       new_image[4*width*i + 4*j + 3] = 255;
     }
   }
