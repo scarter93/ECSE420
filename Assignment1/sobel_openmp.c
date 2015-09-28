@@ -18,8 +18,26 @@ void sobelize(char* input_filename, char* output_filename, int thread_count)
 
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
+  int i,j;
+  unsigned char value;
+  #pragma parallel for num_threads(thread_count) private(i,j)
+  for (i = 1; i < height-1; i++) {
+    for (j = 1; j < width-1; j++) {
+      /* TODO: use the Sobel kernel on this pixel,
+      put the result into the "value" variable */
+      value = (abs((image[4*width*(i-1) + 4*(j-1)] + 2*image[4*width*(i-1) + 4*j]
+                  + image[4*width*(i-1) + 4*(j+1)]) - (image[4*width*(i+1) + 4*(j-1)]
+                  + 2*image[4*width*(i+1) + 4*j] + image[4*width*(i+1) + 4*(j+1)]))
+                  + abs((image[4*width*(i-1) + 4*(j+1)] + 2*image[4*width*(i) + 4*(j+1)]
+                  + image[4*width*(i+1) + 4*(j+1)]) - (image[4*width*(i-1) + 4*(j-1)]
+                  + 2*image[4*width*i + 4*(j-1)] + image[4*width*(i+1) + 4*(j-1)])));
 
-  /* TODO: put your OpenMP parallel block here */
+      new_image[4*width*i + 4*j] = value;
+      new_image[4*width*i + 4*j + 1] = value;
+      new_image[4*width*i + 4*j + 2] = value;
+      new_image[4*width*i + 4*j + 3] = 255;
+    }
+  }
 
   gettimeofday(&end, NULL);
   printf("\n\nAlgorithm's computational part duration : %ld\n", \
