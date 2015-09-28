@@ -22,10 +22,10 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
 
-  unsigned char value;
-  #pragma omp parallel for collapse(2)
+  #pragma omp parallel for collapse(2) private(value)
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
+
         int check = image[4*width*i + 4*j];
 
         value = check <= THRESHOLD ? 0 : 255;
@@ -44,6 +44,7 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   lodepng_encode32_file(output_filename, new_image, width, height);
 
   free(image);
+  free(new_image);
 }
 
 int main(int argc, char *argv[])
