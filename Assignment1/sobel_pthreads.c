@@ -20,6 +20,7 @@ void *worker_thread(void *arg) {
     for (int j = 1; j < width-1; j++) {
 
       if(1 < i < height-1) {
+        fprintf(stdout, "i = %d\n", i );
         value = (abs((image[4*width*(i-1) + 4*(j-1)] + 2*image[4*width*(i-1) + 4*j]
                   + image[4*width*(i-1) + 4*(j+1)]) - (image[4*width*(i+1) + 4*(j-1)]
                   + 2*image[4*width*(i+1) + 4*j] + image[4*width*(i+1) + 4*(j+1)]))
