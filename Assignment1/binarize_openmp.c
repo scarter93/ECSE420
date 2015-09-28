@@ -22,7 +22,8 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
 
-  #pragma omp parallel for collapse(2) private(value)
+  unsigned char value;
+  #pragma omp parallel for collapse(2)
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
 

@@ -13,17 +13,23 @@ void sobelize(char* input_filename, char* output_filename)
   error = lodepng_decode32_file(&image, &width, &height, input_filename);
   if(error) printf("error %u: %s\n", error, lodepng_error_text(error));
   new_image = malloc(width * height * 4 * sizeof(unsigned char));
-  
+
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
 
   /* TODO: Loop through the "image" and generate the "new_image". */
   unsigned char value;
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
+  for (int i = 1; i < height-1; i++) {
+    for (int j = 1; j < width-1; j++) {
       /* TODO: use the Sobel kernel on this pixel,
       put the result into the "value" variable */
-
+      value = (abs((image[4*width*(i-1) + 4*(j-1)] + 2*image[4*width*(i-1) + 4*j]
+                  + image[4*width*(i-1) + 4*(j+1)]) - (image[4*width*(i+1) + 4*(j-1)]
+                  - 2*image[4*width*(i+1) + 4*j] + image[4*width*(i+1) + 4*(j+1)]))
+                  + abs((image[4*width*(i-1) + 4*(j+1) + 2*image[4*width*(i) + 4*(j+1)]
+                  image[4*width*(i+1) +4*(j+1)]) - (image[4*width*(i-1) + 4*(j-1)]
+                  + 2*image[4*width*i + 4*(j-1)] + image[4*width*(i+1) + 4*(j-1)])));
+                  
       new_image[4*width*i + 4*j] = value;
       new_image[4*width*i + 4*j + 1] = value;
       new_image[4*width*i + 4*j + 2] = value;
