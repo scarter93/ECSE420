@@ -9,7 +9,7 @@
 
 void binarize(char* input_filename, char* output_filename, int thread_count)
 {
-  //omp_set_num_threads(thread_count);
+  omp_set_num_threads(thread_count);
 
   unsigned error;
   unsigned char *image, *new_image;
@@ -23,9 +23,9 @@ void binarize(char* input_filename, char* output_filename, int thread_count)
   gettimeofday(&start, NULL);  // set starting point
 
   unsigned char value;
-  #pragma omp parallel for num_threads(thread_count)
+  #pragma omp for
     for (int i = 0; i < height; i++) {
-      #pragma omp for
+      #pragma omp  parallel for num_threads(thread_count)
       for (int j = 0; j < width; j++) {
         int check = image[4*width*i + 4*j];
 
