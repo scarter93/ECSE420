@@ -19,7 +19,6 @@ void sobelize(char* input_filename, char* output_filename, int thread_count)
   struct timeval start, end; // struct used to compute execution time
   gettimeofday(&start, NULL);  // set starting point
   int i,j;
-  unsigned char value;
   #pragma parallel for num_threads(thread_count) private(i,j)
   for (i = 1; i < height-1; i++) {
     for (j = 1; j < width-1; j++) {
