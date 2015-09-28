@@ -17,7 +17,7 @@ void *worker_thread(void *arg) {
   int value;
   fprintf(stdout, "first height%d\nsecond height%d\n", pos_val[0], pos_val[1]);
   for (int i = pos_val[0]; i < pos_val[1]; i++) {
-    for (int j = 0; j < width; j++) {
+    for (int j = 1; j < width-1; j++) {
 
       if(1 < i < height-1 && 1 < j < width-1) {
         //fprintf(stdout, "i = %d\n", i);
