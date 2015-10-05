@@ -5,12 +5,11 @@
 int main(int argc, char ** argv) {
   int A,B,C,D;
   int op1, op2, op3;
-  int rank = 4;
+  int rank;
   printf("rank = %d\n", rank);
   MPI_Init(&argc, &argv);
   MPI_Status status;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-  //MPI_Bcast(&A, sizeof(A)/sizeof(int), MPI_INT, 0, MPI_COMM_WORLD);
 
   if (rank == 3) {
     MPI_Bcast(&A, sizeof(A)/sizeof(int), MPI_INT, 0, MPI_COMM_WORLD);
