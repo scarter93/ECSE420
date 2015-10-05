@@ -5,10 +5,11 @@
 int main(int argc, char ** argv) {
   int A,B,C,D;
   int op1, op2, op3;
-  int rank;
+  int npes, rank;
   printf("rank = %d\n", rank);
   MPI_Init(&argc, &argv);
   MPI_Status status;
+  MPI_Comm_size(MPI_COMM_WORLD, &)
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
   if (rank == 3) {
@@ -42,4 +43,5 @@ int main(int argc, char ** argv) {
   }
 
   MPI_Finalize();
+  return 0;
 }
