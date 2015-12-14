@@ -1,4 +1,4 @@
-import numpy as np
+﻿import numpy as np
 import sys
 matrix = np.random.uniform(low=0.0, high=10.0,size=(200,201))
 file = open("test_matrix.txt", 'w')

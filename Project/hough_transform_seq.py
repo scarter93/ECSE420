@@ -1,4 +1,4 @@
-import math
+﻿import math
 from PIL import Image
 #import threading as thread
 import time
@@ -15,7 +15,7 @@ def hough(image, theta_x=460, rho_y=360):
 
 
     #create new image for output
-    new_hough = Image.new("L", (theta_x, rho_y), 255)
+    new_hough = Image.new("L", (theta_x, rho_y), 0)
     new_image = new_hough.load()
  
     
@@ -24,22 +24,22 @@ def hough(image, theta_x=460, rho_y=360):
         for col in range(cols):
             check = original[row, col]
             #check to see if there is actually a line (this may be changed 0 depending on image)
-            if check == 255:
+            if check == 0:
                 continue
 
             for entry in range(theta_x):
                 theta = d_theta * entry
                 rho = row*math.cos(theta) + col*math.sin(theta)
                 col_real = rho_y/2 + int(rho/d_rho+0.5)
-                new_image[entry, col_real] -= 1
+                new_image[entry, col_real] += 1
     #return result of conversion
     return new_hough
  
  
 def main():
     "Test Hough transform with pentagon."
-    image = Image.open("Pentagon.png").convert("L")
-    out = hough(image)
+    image = Image.open("out_edge_sup.png").convert("L")
+    out = hough(image, 2000, 2000)
     out.save("ho5_pent.png")
  
  

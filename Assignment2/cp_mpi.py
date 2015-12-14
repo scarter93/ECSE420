@@ -1,4 +1,4 @@
-import sys              ##Sys calls
+﻿import sys              ##Sys calls
 import numpy as np      ##NumPy since its great
 import time             ##Not used, should be able to be removed
 from mpi4py import MPI  ##MPI 
@@ -40,8 +40,8 @@ def main(argv): ##MAIN
 
  ##UNCOMMENT TO FOR Question 1.4 (get best threshold)
 
-    #acceptance_thres(matrix, matrix_rows)
-    #COMM.Barrier()
+    acceptance_thres(matrix, matrix_rows)
+    COMM.Barrier()
 ##
 #This function sends the probabilties to the root
 #The Root then writes to the file
